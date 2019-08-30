@@ -1,0 +1,6 @@
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[InternetShortcut]
+IDList=
+URL=http://trimium/graphql/?query={user(id:102){NAME,PERSONAL_BIRTHDAY(format:%22d.m.Y%22),liverCount}}
+HotKey=0

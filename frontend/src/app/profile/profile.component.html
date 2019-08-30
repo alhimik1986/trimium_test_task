@@ -1,0 +1,53 @@
+<div class="profile__header">
+    <div class="profile__header-user">
+        <div class="profile__header-img-block">
+            <img class="profile__header-img" src="{{profilePhotoUrl}}" alt="">
+        </div>
+        <div class="profile__header-name">{{user.last_name}} {{user.first_name}} {{user.middle_name}}</div>
+    </div>
+</div>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile__form">
+    <div class="form-group">
+        <label for="profile__last_name">Фамилия</label>
+        <input
+            type="text"
+            formControlName="last_name"
+            (ngModelChange)="onSubmit()"
+            class="form-control"
+            id="profile__last_name"
+        >
+    </div>
+    <div class="form-group">
+        <label for="profile__first_name">Имя</label>
+        <input
+            type="text"
+            formControlName="first_name"
+            (ngModelChange)="onSubmit()"
+            class="form-control"
+            id="profile__first_name"
+        >
+    </div>
+    <div class="form-group">
+        <label for="profile__middle_name">Отчество</label>
+        <input
+            type="text"
+            formControlName="middle_name"
+            (ngModelChange)="onSubmit()"
+            class="form-control"
+            id="profile__middle_name"
+        >
+    </div>
+    <div class="profile__chief">
+        <div>Руководитель:</div>
+        <img src="{{chief.photo}}" class="profile__chief-img">
+        <div class="profile__chief-name">{{chief.full_name}}</div>
+    </div>
+</form>
+
+<div>Статус сохранения: <b>{{saveStatusText}}</b></div>
+
+<a routerLink="/profile/{{profileId}}">Ссылка на профиль</a>
+
+<app-webcam (captureEvent)="onCapture($event)"></app-webcam>
+

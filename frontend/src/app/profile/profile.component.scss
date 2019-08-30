@@ -1,0 +1,41 @@
+.profile {
+  &__header {
+    border: 1px solid #cccccc;
+    background-color: #eeeeee;
+    display: flex;
+
+    &-user {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    &-img {
+      width: 50px;
+
+      &-block {
+
+      }
+    }
+
+    &-name {
+
+    }
+  }
+
+  &__chief {
+    display: flex;
+    align-items: center;
+
+    &-img {
+      max-width: 50px;
+      margin-left: 20px;
+    }
+  }
+
+  &__form {
+    max-width: 500px;
+    margin-left: 50px;
+  }
+}

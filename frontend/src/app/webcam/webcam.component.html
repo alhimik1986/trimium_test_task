@@ -1,0 +1,34 @@
+<div class="webcam">
+    <div class="webcam__block">
+        <canvas
+            id="webcam__canvas"
+            class="webcam__canvas"
+            [class.webcam__hide]="isHideCanvas"
+        ></canvas>
+        <button
+            (click)="onTurnOnCam()"
+            [class.webcam__hide]="isHideTurnOnCamButton"
+        >
+            Включить камеру
+        </button>
+        <button
+            (click)="onCapture()"
+            [class.webcam__hide]="isHideCaptureButton"
+        >
+            Сделать фото
+        </button>
+        <img
+            id="webcam__img"
+            class="webcam__img"
+            [src]="captureContent"
+            [class.webcam__hide]="isHideImg"
+        >
+        <video
+            id="webcam__video"
+            autoplay
+            class="webcam__video"
+            [class.webcam__hide]="isHideVideo"
+        ></video>
+    </div>
+    <div class="webcam__error">{{errorText}}</div>
+</div>

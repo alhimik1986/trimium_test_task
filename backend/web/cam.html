@@ -1,0 +1,87 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <canvas id="photo" style="display:none"></canvas>
+
+    <button id="get-camera" onclick="init()">Get Camera</button>
+
+    <button id="capture" onclick="capture()" style="display: none;">Capture</button>
+
+    <div id="errorMessage"></div>
+
+    <img id="img" src="">
+
+    <video id="monitor" autoplay></video>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.getUserMedia;
+        window.URL = window.URL || window.webkitURL;
+
+        var video = document.getElementById('monitor');
+        var canvas = document.getElementById('photo');
+        var ctx = canvas.getContext('2d');
+        var globalStream;
+
+        function gotStream(stream) {
+          globalStream = stream;
+
+          if (video.srcObject === undefined) {
+            video.src = window.URL.createObjectURL(stream);
+          } else {
+            video.srcObject  = stream; // Opera.
+          }
+
+          video.onerror = function(e) {
+            stream.stop();
+          };
+
+         video.onloadedmetadata = function(e) {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+         };
+        }
+
+        function noStream(e) {
+          msg = (e.code == 1) ? 'User denied access to use camera.' : 'No camera available.';
+          errorText(msg);
+        }
+
+        window.capture = function() {
+            ctx.drawImage(video, 0, 0);
+            var img = document.getElementById('img');
+            img.src = canvas.toDataURL('image/webp');
+            img.width = canvas.width;
+            img.height = canvas.height;
+            if (globalStream) {
+              globalStream.getTracks()[0].stop();
+            }
+            document.getElementById('capture').style.display = 'none';
+            document.getElementById('monitor').style.display = 'none';
+            document.getElementById('img').style.display = 'inline-block';
+            document.getElementById('get-camera').style.display = 'inline-block';
+        }
+
+        function errorText(msg) {
+          document.getElementById('errorMessage').innerHTML = msg;
+        }
+
+        window.init = function() {
+          if ( ! navigator.getUserMedia) {
+            errorText('Sorry. <code>navigator.getUserMedia()</code> is not available.');
+            return;
+          }
+
+          document.getElementById('capture').style.display = 'inline-block';
+          document.getElementById('monitor').style.display = 'block';
+          document.getElementById('img').style.display = 'none';
+          document.getElementById('get-camera').style.display = 'none';
+          navigator.getUserMedia({video: true}, gotStream, noStream);
+        }
+
+      };
+    </script>
+    </body>
+</html>
